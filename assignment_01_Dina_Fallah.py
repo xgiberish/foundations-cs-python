@@ -85,7 +85,7 @@ def descriptiveStatistics():
 
 def main():
     #Factorial testing
- '''   number = int(input("Please provide a positive number: "))
+ '''number = int(input("Please provide a positive number: "))
     result = factorial(number)
     if result is not None:
          print("Your factorial: ", result)
