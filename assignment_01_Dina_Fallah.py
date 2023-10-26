@@ -85,7 +85,10 @@ def descriptiveStatistics():
 
 def main():
     #Factorial testing
- '''number = int(input("Please provide a positive number: "))
+    number3 = input("Gimme a word so I can do a magic trick: ")
+    print("Fancy: ", reverseString(number3))
+    
+'''number = int(input("Please provide a positive number: "))
     result = factorial(number)
     if result is not None:
          print("Your factorial: ", result)
@@ -96,9 +99,7 @@ def main():
     print("Your special list: ", result2)
     
     #String reversal
-    number3 = input("Gimme a word so I can do a magic trick: ")
-    print("Fancy: ", reverseString(number3))
-    
+ 
     #Even numbers
     number4= input("Gimme a nice list seperate them by a space: ")
     print("Your even numbers are: ", evenNumbers(number4))
@@ -109,7 +110,7 @@ def main():
     
     #FSD Specials
     descriptiveStatistics()
-    
-
 '''
+    
+    
 main()
