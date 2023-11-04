@@ -79,6 +79,7 @@ def getCommon(a_frame, another_frame):
 
 
 # Thought process: I figured by subtracting the consecutive scores then we can tell if it's negative then their score has increased
+# Second thoughts, idk if the improvement would count as consistent but like improvement is improvement
 def findImprovement(data_frame):
     improved_names = []
 
