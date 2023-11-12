@@ -9,7 +9,7 @@ For the sake of my own sanity I will be validating the site name and domain with
 Nested tabs will be allowed to contain paths as they would contain special characters
 So basically, the main tab will be the main page then I'll be verifying nested tabs according to their parent page
 '''
-def validateTab(user_tabs, tab_index):
+def validateTabIndex(user_tabs, tab_index):
     if tab_index is not None and tab_index.isdigit() and (0 < tab_index < len(user_tabs)):
         return tab_index
     elif tab_index is not None and not tab_index.isdight():
@@ -55,7 +55,8 @@ def closeTab(user_tabs, close_me):
     
     if close_me is None:
         user_tabs.popitem()
-    
+    elif validateTabIndex(user_tabs, close_me):
+        user_tabs.pop(close_me) 
     else:
         print("Something is not right here.")
         
@@ -87,9 +88,10 @@ def openNestedTabs():
     return
 
 def clearAllTabs(user_tabs):
-    input = print("Are you sure about this? if so then what's the best anime out there? If you get it right then I'll clear everything.")
+    input = input("Are you sure about this? if so then what's the best anime out there? If you get it right then I'll clear everything.")
     if input == 'Gintama':
         user_tabs.clear()
+        return("It's done.")
     else:
         print("You've failed")
         return
@@ -126,6 +128,7 @@ def main():
             if(web_url):
                 web_title=input("What title would you like to give it? ")
                 openTab(user_tabs, web_title, web_url)
+                displayHTML(web_url)
                 
                 
         elif choice == "2":
@@ -140,12 +143,15 @@ def main():
             
         elif choice == "5":
             print()
+            
         elif choice == "6":
-            print()
+            clearAllTabs(user_tabs)
         elif choice == "7":
             print()
+            
         elif choice == "8":
             print()
+            
         elif choice == "9":
             print("Goodbye.")
             break
@@ -167,5 +173,9 @@ Methods used:
 https://python-reference.readthedocs.io/en/latest/docs/str/rsplit.html
 https://www.w3schools.com/python/python_ref_dictionary.asp
 
+Json file saving:
+https://www.geeksforgeeks.org/reading-and-writing-json-to-a-file-in-python/
+
 '''
+
 
