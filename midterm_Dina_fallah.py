@@ -133,7 +133,7 @@ def importTabs():
         print(f"Tabs imported succesfully.")
         displayAllTabs(imported_tabs)
     except:
-        print("We faced an issue importing your files... ")
+        print("We faced an issue importing your files... It's probably your fault.")
 
 
 
@@ -175,15 +175,16 @@ def main():
             displayAllTabs(user_tabs)
             
         elif choice == "5":
-            print()
+            nestedValidator(user_tabs)
             
         elif choice == "6":
             clearAllTabs(user_tabs)
+            
         elif choice == "7":
-            print()
+            saveTabs(user_tabs)
             
         elif choice == "8":
-            print()
+            importTabs()
             
         elif choice == "9":
             print("Goodbye.")
