@@ -49,21 +49,32 @@ def inputValidator(web_url):
     
 def nestedValidator(user_tabs):
     parent_index = input("Which tab would you like to nest in? ")
-    parent_index = validateTabIndex(user_tabs, parent_index)
+    try:
+        parent_index = int(parent_index) - 1
+    except ValueError:
+        print("Invalid input. Please enter an actual number.")
+        return
 
-    if parent_index is not None and "Nested" in user_tabs[parent_index]:
-        parent_url = user_tabs[parent_index]["URL"]
+    if 0 <= parent_index < len(user_tabs):
+        parent_tab = user_tabs[parent_index]
+        print(parent_tab)
 
-        child_url = getUrlFromUser()
-        child_base = child_url.rsplit('.', 1)
-        child_tab = openTab(child_url)
+        if "Nested" in parent_tab:
+            parent_url = parent_tab["URL"]
 
-        if child_base != parent_url:
-            print("That's not a valid child for this tab.")
+            child_url = getUrlFromUser()
+            child_base = child_url.rsplit('.', 1)
+
+            if child_base != parent_url:
+                print("That's not a valid child for this tab.")
+            else:
+                child_title=input("What title would you like to give it? ")
+                child_tab= openTab(user_tabs, child_title, child_url_url)
+                openNestedTabs(user_tabs, parent_index, child_tab)
         else:
-            openNestedTabs(user_tabs, parent_index, child_tab)
+            print("The selected tab does not have a 'Nested' key.")
     else:
-        print("Invalid parent tab index or no 'Nested' key in the parent tab.")
+        print("Invalid parent tab index.")
         
         #I may have not understood this one clearly, but I worked on it as if we're on the same site and we're going to different pages within it
         #Anyway it's too late to back down now, I've had a lot on my plate lately
