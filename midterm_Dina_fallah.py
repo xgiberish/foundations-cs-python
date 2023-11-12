@@ -191,9 +191,11 @@ def main():
             switchTab(user_tabs)
             
         elif choice == "4":
+            print("Displaying all of your tab: ")
             displayAllTabs(user_tabs)
             
         elif choice == "5":
+            print("A child can be nested inside of its parent side, say opening within the same website.")
             nestedValidator(user_tabs)
             
         elif choice == "6":
