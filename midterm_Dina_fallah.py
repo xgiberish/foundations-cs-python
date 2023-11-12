@@ -1,4 +1,5 @@
 import requests
+import json
 
 VALID_DOMAINS = ('com', 'net', 'org', 'io', 'edu', 'gov', 'lb')
 
@@ -10,10 +11,6 @@ Nested tabs will be allowed to contain paths as they would contain special chara
 So basically, the main tab will be the main page then I'll be verifying nested tabs according to their parent page
 '''
 
-def getNameDomain(tab_url):
-    webName, domain = tab_url.rsplit('.', 1)
-    
-    return webName, domain
 
 def validateTabIndex(user_tabs, tab_index):
     if tab_index is not None and tab_index.isdigit() and (0 < tab_index < len(user_tabs)):
@@ -49,9 +46,7 @@ def nestedValidator(user_tabs):
     parent_index = print("Which tab would you like to nest in?")
     if validateTabIndex(parent_index):
         parent_url = user_tabs[parent_index]["URL"]
-        
-        parent_name, parent_domain = getNameDomain(parent_url)
-        
+                
         child_url = getUrlFromUser()
         
         child_base = child_url.rsplit('.', 1)
@@ -65,15 +60,9 @@ def nestedValidator(user_tabs):
         
         #I may have not understood this one clearly, but I worked on it as if we're on the same site and we're going to different pages within it
         #Anyway it's too late to back down now, I've had a lot on my plate lately
-        
-        
-        
-        
     else:
         return
     
-    
-
 
 def openTab(user_tabs, title, url):
     tab_index = len(user_tabs) + 1
@@ -127,8 +116,13 @@ def clearAllTabs(user_tabs):
         print("You've failed")
         return
 
-def saveTabs():
-    return
+def saveTabs(user_tabs):
+    add_to = ".json"
+    user_json = input("Input a name for your file, we'll handle converting it to a json file: ")
+    user_json.join(add_to)
+    with open(user_json, 'w') as json_file:
+        json.dump(user_tabs, json_file, indent = 2)
+    print(f"File {user_json} saved.")
 
 def importTabs():
     return
@@ -206,6 +200,7 @@ https://www.w3schools.com/python/python_ref_dictionary.asp
 
 Json file saving:
 https://www.geeksforgeeks.org/reading-and-writing-json-to-a-file-in-python/
+https://www.geeksforgeeks.org/json-dumps-in-python/
 
 '''
 
