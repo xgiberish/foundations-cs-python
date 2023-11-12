@@ -9,6 +9,12 @@ For the sake of my own sanity I will be validating the site name and domain with
 Nested tabs will be allowed to contain paths as they would contain special characters
 So basically, the main tab will be the main page then I'll be verifying nested tabs according to their parent page
 '''
+
+def getDomain(tab_url):
+    webName, domain = tab_url.rsplit('.', 1)
+    
+    return domain
+
 def validateTabIndex(user_tabs, tab_index):
     if tab_index is not None and tab_index.isdigit() and (0 < tab_index < len(user_tabs)):
         return tab_index
@@ -39,8 +45,15 @@ def inputValidator(web_url):
         print(f"Thank you for your cooperation. Tab now open {web_url}")
         return web_url
     
-def nestedValidator(user_tabs, parent_url):
-    child_tab = print("Which tab would you like to nest in?")
+def nestedValidator(user_tabs):
+    parent_index = print("Which tab would you like to nest in?")
+    if validateTabIndex(parent_index):
+        parent_url = user_tabs[parent_index]["URL"]
+        
+        
+    else:
+        return
+    
     
 
 
@@ -84,8 +97,8 @@ def displayAllTabs(user_tabs):
             print("Your current open tabs are: ")
             print(f"Title: {tab['Title']}, Nested: {tab['Nested']}, Tab Index: {tab['Tab Index: ']}")
 
-def openNestedTabs():
-    return
+def openNestedTabs(user_tabs, parent_index, child_tab):
+    user_tabs[parent_index["Nesed"]] = child_tab
 
 def clearAllTabs(user_tabs):
     input = input("Are you sure about this? if so then what's the best anime out there? If you get it right then I'll clear everything.")
