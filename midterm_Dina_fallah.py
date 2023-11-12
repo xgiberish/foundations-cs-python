@@ -155,7 +155,7 @@ def importTabs():
         print("We faced an issue importing your files... It's probably your fault.")
 
 
-
+#The user is allowed to input the pure link, domains are preset which are accepted
 
 def main():
     user_tabs = []
@@ -200,9 +200,11 @@ def main():
             clearAllTabs(user_tabs)
             
         elif choice == "7":
+            print("Attempting to save...")
             saveTabs(user_tabs)
             
         elif choice == "8":
+            print("Importing tabs...")
             importTabs()
             
         elif choice == "9":
