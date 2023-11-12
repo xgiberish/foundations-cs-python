@@ -35,13 +35,24 @@ def inputValidator(web_url):
 
 
 def openTab(user_tabs, title, url):
-    new_tab= {"Title": title, "URL": url,"Nested":'' ,"is_closed": 0}
+    tab_index = len(user_tabs) + 1
+    new_tab= {"Title": title, "URL": url,"Nested":'' ,"Tab Index: ": tab_index ,"is_closed": 0}
     user_tabs.append(new_tab)
     
     return print(f"Succesfully added {title} as a new tab.")
 
-def closeTab():
-    return
+def closeTab(user_tabs, close_me, current_tab):
+    
+    if close_me is None:
+        user_tabs[current_tab]["is_closed"] = 1
+    elif close_me is not None and close_me.isdigit() and (0 < close_me < len(user_tabs)):
+        user_tabs[close_me]["is_closed"] = 1
+    elif close_me is not None and not close_me.isdight():
+        print("Are you messing with me?")
+        return
+    else:
+        print("Something is not right here.")
+    
 
 def switchTab():
     return
@@ -65,7 +76,8 @@ def importTabs():
 
 
 def main():
-    user_tabs = {}
+    user_tabs = []
+    current_tab = ''
     
     while True:
         print("\nOptions:")
@@ -85,9 +97,13 @@ def main():
             web_url = getUrlFromUser()
             if(web_url):
                 web_title=input("What title would you like to give it?")
+                openTab(user_tabs, web_title, web_url)
+                current_tab = requests.get(web_url)
+                print(current_tab)
                 
         elif choice == "2":
-            print()
+            close_me = print("Which tab would you like to close? ")
+            
         elif choice == "3":
             print()
         elif choice == "4":
