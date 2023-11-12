@@ -197,6 +197,7 @@ def main():
             nestedValidator(user_tabs)
             
         elif choice == "6":
+            print("Clearing tabs is irreversible... Choose wisely")
             clearAllTabs(user_tabs)
             
         elif choice == "7":
