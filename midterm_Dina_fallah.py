@@ -36,35 +36,57 @@ def inputValidator(web_url):
 
 def openTab(user_tabs, title, url):
     tab_index = len(user_tabs) + 1
-    new_tab= {"Title": title, "URL": url,"Nested":'' ,"Tab Index: ": tab_index ,"is_closed": 0}
+    new_tab= {"Title": title, "URL": url,"Nested":'' ,"Tab Index: ": tab_index}
     user_tabs.append(new_tab)
     
     return print(f"Succesfully added {title} as a new tab.")
 
-def closeTab(user_tabs, close_me, current_tab):
+def closeTab(user_tabs, close_me):
     
     if close_me is None:
-        user_tabs[current_tab]["is_closed"] = 1
+        user_tabs.popitem()
     elif close_me is not None and close_me.isdigit() and (0 < close_me < len(user_tabs)):
-        user_tabs[close_me]["is_closed"] = 1
+        user_tabs.pop(close_me)
     elif close_me is not None and not close_me.isdight():
         print("Are you messing with me?")
         return
     else:
         print("Something is not right here.")
+        
+def displayHTML(web_url):
+    try:
+        current_tab = requests.get(web_url)
+        print(current_tab.text)
+    except:
+        print(f"We faced an issue getting to {web_url}")
     
 
-def switchTab():
-    return
-
-def displayAllTabs():
-    return
+def switchTab(user_tabs):
+    displayAllTabs(user_tabs)
+    tab_index = input("Which tab would you like to switch to? ")
+    
+    if tab_index is not None and tab_index.isdigit() and (0< tab_index < len(user_tabs)):
+        displayHTML(user_tabs[tab_index]['URL'])
+    elif tab_index is not None and not tab_index.isdigit():
+        print("That's not an option...")
+    
+        
+def displayAllTabs(user_tabs):
+     for tab in user_tabs:
+        if tab.get("is_closed", 0) == 0:
+            print("Your current open tabs are: ")
+            print(f"Title: {tab['Title']}, Nested: {tab['Nested']}, Tab Index: {tab['Tab Index: ']}")
 
 def openNestedTabs():
     return
 
-def clearAllTabs():
-    return
+def clearAllTabs(user_tabs):
+    input = print("Are you sure about this? if so then what's the best anime out there? If you get it right then I'll clear everything.")
+    if input == 'Gintama':
+        user_tabs.clear()
+    else:
+        print("You've failed")
+        return
 
 def saveTabs():
     return
@@ -77,7 +99,6 @@ def importTabs():
 
 def main():
     user_tabs = []
-    current_tab = ''
     
     while True:
         print("\nOptions:")
@@ -98,19 +119,18 @@ def main():
             if(web_url):
                 web_title=input("What title would you like to give it? ")
                 openTab(user_tabs, web_title, web_url)
-                try:
-                    current_tab = requests.get(web_url)
-                    print(current_tab.text)
-                except:
-                    print(f"We faced an issue getting to {web_url}")
+                
                 
         elif choice == "2":
             close_me = print("Which tab would you like to close? ")
+            closeTab(close_me)
             
         elif choice == "3":
-            print()
+            switchTab(user_tabs)
+            
         elif choice == "4":
-            print()
+            displayAllTabs(user_tabs)
+            
         elif choice == "5":
             print()
         elif choice == "6":
@@ -136,9 +156,9 @@ Python web scraping:
 https://www.youtube.com/watch?v=8dTpNajxaH0
 https://oxylabs.io/blog/python-web-scraping
 
-Fuctions used:
+Methods used:
 https://python-reference.readthedocs.io/en/latest/docs/str/rsplit.html
-
+https://www.w3schools.com/python/python_ref_dictionary.asp
 
 '''
 
