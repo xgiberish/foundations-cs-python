@@ -69,7 +69,7 @@ def nestedValidator(user_tabs):
                 print("That's not a valid child for this tab.")
             else:
                 child_title=input("What title would you like to give it? ")
-                child_tab= openTab(user_tabs, child_title, child_url_url)
+                child_tab= openTab(user_tabs, child_title, child_url)
                 openNestedTabs(user_tabs, parent_index, child_tab)
         else:
             print("The selected tab does not have a 'Nested' key.")
