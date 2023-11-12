@@ -1,3 +1,39 @@
+import requests
+
+VALID_DOMAINS = ('com', 'net', 'org', 'io', 'edu', 'gov', 'lb')
+
+INVALID_CHARACTER = ('!','@','#','$','%', '^','&','*','(',')','+')
+
+'''
+For the sake of my own sanity I will be validating the site name and domain without the path
+Nested tabs will be allowed to contain paths as they would contain special characters
+So basically, the main tab will be the main page then I'll be verifying nested tabs according to their parent page
+'''
+
+#response = requests.get('https://oxylabs.io/')
+
+def getUrlFromUser():
+    siteName = input("Please provide the site name: ")
+    siteDomain= input("Please provide the site domain: ")
+    
+    web_url ='https://' + siteName + '.' + siteDomain
+    
+    return inputValidator(web_url)
+
+def inputValidator(web_url):
+    webName, domain = web_url.rsplit('.', 1)
+    
+    if domain.lower() not in VALID_DOMAINS:
+        print("Invalid URL domain. Yes I know I've limited your options, please deal with it.")
+        return False
+    elif INVALID_CHARACTER in webName:
+        print("What kind of a link is that?")
+        return False
+    else:
+        print("Thank you for your cooperation.")
+        return True
+
+
 def openTab():
     return
 
@@ -41,7 +77,7 @@ def main():
         choice = input("What would you like to do?: ")
 
         if choice == "1":
-            print()
+            getUrlFromUser()
         elif choice == "2":
             print()
         elif choice == "3":
@@ -64,3 +100,18 @@ def main():
 
 
 main()
+
+
+'''
+Resources 
+
+Python web scraping: 
+https://www.youtube.com/watch?v=8dTpNajxaH0
+https://oxylabs.io/blog/python-web-scraping
+
+Fuctions used:
+https://python-reference.readthedocs.io/en/latest/docs/str/rsplit.html
+
+
+'''
+
