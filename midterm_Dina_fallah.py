@@ -10,10 +10,10 @@ Nested tabs will be allowed to contain paths as they would contain special chara
 So basically, the main tab will be the main page then I'll be verifying nested tabs according to their parent page
 '''
 
-def getDomain(tab_url):
+def getNameDomain(tab_url):
     webName, domain = tab_url.rsplit('.', 1)
     
-    return domain
+    return webName, domain
 
 def validateTabIndex(user_tabs, tab_index):
     if tab_index is not None and tab_index.isdigit() and (0 < tab_index < len(user_tabs)):
@@ -49,6 +49,24 @@ def nestedValidator(user_tabs):
     parent_index = print("Which tab would you like to nest in?")
     if validateTabIndex(parent_index):
         parent_url = user_tabs[parent_index]["URL"]
+        
+        parent_name, parent_domain = getNameDomain(parent_url)
+        
+        child_url = getUrlFromUser()
+        
+        child_base = child_url.rsplit('.', 1)
+        
+        child_tab = openTab(child_url)
+        
+        if child_base != parent_url:
+            print("That's not a valid child for this tab.")
+        else:
+            openNestedTabs(user_tabs, parent_index, child_tab)
+        
+        #I may have not understood this one clearly, but I worked on it as if we're on the same site and we're going to different pages within it
+        #Anyway it's too late to back down now, I've had a lot on my plate lately
+        
+        
         
         
     else:
@@ -98,7 +116,7 @@ def displayAllTabs(user_tabs):
             print(f"Title: {tab['Title']}, Nested: {tab['Nested']}, Tab Index: {tab['Tab Index: ']}")
 
 def openNestedTabs(user_tabs, parent_index, child_tab):
-    user_tabs[parent_index["Nesed"]] = child_tab
+    user_tabs[parent_index["Nested"]] = child_tab
 
 def clearAllTabs(user_tabs):
     input = input("Are you sure about this? if so then what's the best anime out there? If you get it right then I'll clear everything.")
