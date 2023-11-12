@@ -2,7 +2,7 @@ import requests
 
 VALID_DOMAINS = ('com', 'net', 'org', 'io', 'edu', 'gov', 'lb')
 
-INVALID_CHARACTER = ('!','@','#','$','%', '^','&','*','(',')','+')
+INVALID_CHARACTERS = '!@#$%^&*()+'
 
 '''
 For the sake of my own sanity I will be validating the site name and domain without the path
@@ -26,7 +26,7 @@ def inputValidator(web_url):
     if domain.lower() not in VALID_DOMAINS:
         print("Invalid URL domain. Yes I know I've limited your options, please deal with it.")
         return False
-    elif INVALID_CHARACTER in webName:
+    elif any(character in webName for character in INVALID_CHARACTERS):
         print("What kind of a link is that?")
         return False
     else:
@@ -111,6 +111,7 @@ https://oxylabs.io/blog/python-web-scraping
 
 Fuctions used:
 https://python-reference.readthedocs.io/en/latest/docs/str/rsplit.html
+https://www.programiz.com/python-programming/methods/built-in/any
 
 
 '''
