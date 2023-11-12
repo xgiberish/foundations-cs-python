@@ -13,13 +13,18 @@ So basically, the main tab will be the main page then I'll be verifying nested t
 
 
 def validateTabIndex(user_tabs, tab_index):
-    if tab_index is not None and tab_index.isdigit() and (0 < tab_index < len(user_tabs)):
-        return tab_index
-    elif tab_index is not None and not tab_index.isdight():
-        print("That is not a number...")
-    else:
-        print("UNACCEPTABLEEEE")
-    
+    try:
+        tab_index = int(tab_index)
+        if tab_index is None:
+            print("Um, don't ya wanna tell me where to nest it? Y'all didn't specify a default in the question sheet.")
+        elif not str(tab_index).isdigit():
+            print("That is not a number...")
+        elif 0 <= tab_index < len(user_tabs):
+            return tab_index
+        else:
+            print("UNACCEPTABLEEEE")
+    except ValueError:
+        print("That is not a valid number...")
 
 def getUrlFromUser():
     siteName = input("Please provide the site name: ")
@@ -32,41 +37,42 @@ def getUrlFromUser():
 def inputValidator(web_url):
     webName, domain = web_url.rsplit('.', 1)
     
-    if domain.lower() not in VALID_DOMAINS:
-        print("Invalid URL domain. Yes I know I've limited your options, please deal with it.")
-        return False
-    elif any(character in webName for character in INVALID_CHARACTERS):
+    if any(character in webName for character in INVALID_CHARACTERS):
         print("What kind of a link is that?")
+        return False
+    elif domain.lower() not in VALID_DOMAINS:
+        print("Invalid URL domain. Yes I know I've limited your options, please deal with it.")
         return False
     else:
         print(f"Thank you for your cooperation. Tab now open {web_url}")
         return web_url
     
 def nestedValidator(user_tabs):
-    parent_index = print("Which tab would you like to nest in?")
-    if validateTabIndex(parent_index):
+    parent_index = input("Which tab would you like to nest in? ")
+    parent_index = validateTabIndex(user_tabs, parent_index)
+
+    if parent_index is not None and "Nested" in user_tabs[parent_index]:
         parent_url = user_tabs[parent_index]["URL"]
-                
+
         child_url = getUrlFromUser()
-        
         child_base = child_url.rsplit('.', 1)
-        
         child_tab = openTab(child_url)
-        
+
         if child_base != parent_url:
             print("That's not a valid child for this tab.")
         else:
             openNestedTabs(user_tabs, parent_index, child_tab)
+    else:
+        print("Invalid parent tab index or no 'Nested' key in the parent tab.")
         
         #I may have not understood this one clearly, but I worked on it as if we're on the same site and we're going to different pages within it
         #Anyway it's too late to back down now, I've had a lot on my plate lately
-    else:
-        return
+
     
 
 def openTab(user_tabs, title, url):
     tab_index = len(user_tabs) + 1
-    new_tab= {"Title": title, "URL": url,"Nested":'' ,"Tab Index: ": tab_index}
+    new_tab= {"Title": title, "URL": url,"Nested":[] ,"Tab Index: ": tab_index}
     user_tabs.append(new_tab)
     
     return print(f"Succesfully added {title} as a new tab.")
@@ -105,8 +111,10 @@ def displayAllTabs(user_tabs):
             print(f"Title: {tab['Title']}, Nested: {tab['Nested']}, Tab Index: {tab['Tab Index: ']}")
 
 def openNestedTabs(user_tabs, parent_index, child_tab):
-    user_tabs[parent_index["Nested"]] = child_tab
-
+    if "Nested" not in user_tabs[parent_index]:
+        user_tabs[parent_index]["Nested"] = []
+    user_tabs[parent_index]["Nested"].append(child_tab)
+    
 def clearAllTabs(user_tabs):
     input = input("Are you sure about this? if so then what's the best anime out there? If you get it right then I'll clear everything.")
     if input == 'Gintama':
