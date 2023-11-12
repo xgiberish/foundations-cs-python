@@ -9,8 +9,14 @@ For the sake of my own sanity I will be validating the site name and domain with
 Nested tabs will be allowed to contain paths as they would contain special characters
 So basically, the main tab will be the main page then I'll be verifying nested tabs according to their parent page
 '''
-
-#response = requests.get('https://oxylabs.io/')
+def validateTab(user_tabs, tab_index):
+    if tab_index is not None and tab_index.isdigit() and (0 < tab_index < len(user_tabs)):
+        return tab_index
+    elif tab_index is not None and not tab_index.isdight():
+        print("That is not a number...")
+    else:
+        print("UNACCEPTABLEEEE")
+    
 
 def getUrlFromUser():
     siteName = input("Please provide the site name: ")
@@ -18,7 +24,7 @@ def getUrlFromUser():
     
     web_url ='https://' + siteName + '.' + siteDomain
     
-    return inputValidator(web_url)
+    return web_url
 
 def inputValidator(web_url):
     webName, domain = web_url.rsplit('.', 1)
@@ -32,6 +38,10 @@ def inputValidator(web_url):
     else:
         print(f"Thank you for your cooperation. Tab now open {web_url}")
         return web_url
+    
+def nestedValidator(user_tabs, parent_url):
+    child_tab = print("Which tab would you like to nest in?")
+    
 
 
 def openTab(user_tabs, title, url):
@@ -45,11 +55,7 @@ def closeTab(user_tabs, close_me):
     
     if close_me is None:
         user_tabs.popitem()
-    elif close_me is not None and close_me.isdigit() and (0 < close_me < len(user_tabs)):
-        user_tabs.pop(close_me)
-    elif close_me is not None and not close_me.isdight():
-        print("Are you messing with me?")
-        return
+    
     else:
         print("Something is not right here.")
         
@@ -115,7 +121,8 @@ def main():
         choice = input("What would you like to do?: ")
 
         if choice == "1":
-            web_url = getUrlFromUser()
+            initial_url = getUrlFromUser()
+            web_url = inputValidator(initial_url)
             if(web_url):
                 web_title=input("What title would you like to give it? ")
                 openTab(user_tabs, web_title, web_url)
