@@ -96,10 +96,13 @@ def main():
         if choice == "1":
             web_url = getUrlFromUser()
             if(web_url):
-                web_title=input("What title would you like to give it?")
+                web_title=input("What title would you like to give it? ")
                 openTab(user_tabs, web_title, web_url)
-                current_tab = requests.get(web_url)
-                print(current_tab)
+                try:
+                    current_tab = requests.get(web_url)
+                    print(current_tab.text)
+                except:
+                    print(f"We faced an issue getting to {web_url}")
                 
         elif choice == "2":
             close_me = print("Which tab would you like to close? ")
