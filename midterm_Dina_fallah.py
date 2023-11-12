@@ -125,7 +125,15 @@ def saveTabs(user_tabs):
     print(f"File {user_json} saved.")
 
 def importTabs():
-    return
+    import_file = input("Please provide the file name to be imported: ")
+    
+    try:
+        with open(import_file, 'r') as json_file:
+            imported_tabs = json.load(json_file)
+        print(f"Tabs imported succesfully.")
+        displayAllTabs(imported_tabs)
+    except:
+        print("We faced an issue importing your files... ")
 
 
 
