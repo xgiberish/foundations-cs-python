@@ -30,12 +30,15 @@ def inputValidator(web_url):
         print("What kind of a link is that?")
         return False
     else:
-        print("Thank you for your cooperation.")
-        return True
+        print(f"Thank you for your cooperation. Tab now open {web_url}")
+        return web_url
 
 
-def openTab():
-    return
+def openTab(user_tabs, title, url):
+    new_tab= {"Title": title, "URL": url,"Nested":'' ,"is_closed": 0}
+    user_tabs.append(new_tab)
+    
+    return print(f"Succesfully added {title} as a new tab.")
 
 def closeTab():
     return
@@ -62,6 +65,8 @@ def importTabs():
 
 
 def main():
+    user_tabs = {}
+    
     while True:
         print("\nOptions:")
         print("1. Open Tab")
@@ -77,7 +82,10 @@ def main():
         choice = input("What would you like to do?: ")
 
         if choice == "1":
-            getUrlFromUser()
+            web_url = getUrlFromUser()
+            if(web_url):
+                web_title=input("What title would you like to give it?")
+                
         elif choice == "2":
             print()
         elif choice == "3":
@@ -111,7 +119,6 @@ https://oxylabs.io/blog/python-web-scraping
 
 Fuctions used:
 https://python-reference.readthedocs.io/en/latest/docs/str/rsplit.html
-https://www.programiz.com/python-programming/methods/built-in/any
 
 
 '''
