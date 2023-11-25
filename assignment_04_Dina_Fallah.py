@@ -135,12 +135,14 @@ class Stack:
             print("You've done nothing")
 
         else:
-            print("Your most recent accomplishment:", self.header.info)
+            print(
+                "Your most recent accomplishment: ", self.header.info.getDescription()
+            )
 
 
 def finishTask(task_queue: PriorityQueue, task_stack: Stack):
     if task_queue.size == 0:
-        print("You have nothing to do")
+        print("You have nothing to do.")
     else:
         completed_task = task_queue.header.info
         completed_task.setCompleted(True)
@@ -217,7 +219,7 @@ def setPriority():
 
 
 def addANewTask(task_queue: PriorityQueue, task_id):
-    description = input("Can you describe this task of yours?")
+    description = input("Can you describe this task of yours? ")
     priority = setPriority()
     new_task = Task(task_id, description, priority)
     task_queue.enqueue(new_task)
@@ -247,6 +249,7 @@ def main():
             task_id += 1
 
         elif choice == "2":
+            my_tasks.displayQueue()
             chosen_task = input("Choose your poison: ")
             task = my_tasks.getTaskById(chosen_task)
             if task:
