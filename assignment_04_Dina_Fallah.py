@@ -188,16 +188,16 @@ def setPriority():
                 print("This deserves to be higher, but we have limited options.")
                 return 70
             elif user_answer == 5:
-                print("Yes yes, very important task.")
+                print("Quite the fruity task.")
                 return 60
             elif user_answer == 6:
-                print("Quite the fruity task.")
+                print("I guess this counts.")
                 return 50
             elif user_answer == 7:
-                print("A task is still a task.")
+                print("I can feel the haters coming, this can wait.")
                 return 40
             elif user_answer == 8:
-                print("I can feel the haters coming, this can wait.")
+                print("PLOTTTTTTT.")
                 return 30
             elif user_answer == 9:
                 print("You're just here for the plot.")
